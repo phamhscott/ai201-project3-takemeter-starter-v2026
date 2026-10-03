@@ -54,6 +54,33 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
+### Community reading notes (Milestone 1)
+
+Community: [r/workout](https://www.reddit.com/r/workout/). These provisional
+distinctions come from posts brought from the front page. They are observations to potentially test,
+not final labels.
+
+- **Personal help request vs. open discussion:** There are posts like,"Gym progress and scared to
+  eat." These are more about the author asking what to do with their situation. Constrastly, there are posts like "What's one fitness habit
+  that made a bigger difference than you expected?" These are posts that invite everyone to share their own situation / experience.
+- **Personal account vs. general recommendation:** There are some posts that are more personal anecdotes that recounts a specific gym
+  interaction, while there are posts like "I don't know who needs to hear this..." which are more general messages (people should stay
+  home from the gym when sick). There is also a sort of mix like, "Stubborn man realizes tracking food actually
+  works." This combines a personal result with a broader lesson (could be hard to distinguish).
+- **Existing plan for review vs. help starting:** Posts like "I need help since im
+  starting a new split" provides a complete PPL/UL schedule for feedback. Posts like
+  "Home dumbell workout as a newbie" asks how to begin with home equipment.
+- **Detailed context vs. sparse context:** Some posts include schedules, sets,
+  goals, and constraints. There are also very broad / less personal posts like "What are the signs someone uses steroids?
+ This may affect how answerable a post is, whatever its topic (less personally tailored, as well as posts that are more "for fun" and not personal).
+
+Topics also vary across training plans (including splits), food and
+supplements, motivation, progress, and gym culture. A topic-only taxonomy would
+need a rule for mixed posts such as "Gym progress and scared to eat," which
+discusses both training and eating. Another possible hard boundary is a
+personal story that ends by inviting others to share, such as "Anyone else ever
+been told 'you dont look like you workout'?"
+
 ### `label_one`
 
 **Definition:**
