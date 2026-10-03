@@ -81,33 +81,64 @@ discusses both training and eating. Another possible hard boundary is a
 personal story that ends by inviting others to share, such as "Anyone else ever
 been told 'you dont look like you workout'?"
 
-### `label_one`
+### Labels
 
-**Definition:**
+We use the post's main purpose for its final CSV label. Fitness topic (such as
+training, nutrition, motivation, or gym culture) goes in the `note` column (it is not a second label).
 
-**Example 1:**
->
 
-**Example 2:**
->
+Eight synthetic boundary cases and their classifications are in
+[taxonomy_stress_test.md](taxonomy_stress_test.md).
 
-### `label_two`
+### `help_request`
 
-**Definition:**
+**Definition:** The author asks for advice, assessment, or strategies to
+address an unresolved problem, choice, or concern in their own fitness life.
 
-**Example 1:**
->
+**Example 1:** [FBEOD SPLIT](https://www.reddit.com/r/workout/comments/1wh24kx/fbeod_split/)
+provides an A/B workout and asks what to change.
 
-**Example 2:**
->
+**Example 2:** [natural bulk advice](https://www.reddit.com/r/workout/comments/1wh1rfs/natural_bulk_advice/)
+asks how to meet the author's calorie and protein goals within food restrictions.
+
+### `discussion_prompt`
+
+**Definition:** The author asks for general information, opinions, or other
+people's experiences without seeking help for an unresolved personal concern
+or choice.
+
+**Example 1:** [What do you listen to when you workout?](https://www.reddit.com/r/workout/comments/1wfqas8/what_do_you_listen_to_when_you_workout/)
+asks others about their workout music.
+
+**Example 2:** [What are you working on rn?](https://www.reddit.com/r/workout/comments/1wflemc/what_are_you_working_on_rn/)
+asks which once-disliked exercises others now enjoy.
+
+### `sharing`
+
+**Definition:** The author mainly reports an experience or result, states a
+view, or offers a recommendation without asking for personal help or inviting
+a general exchange.
+
+**Example 1:** [Stronger Than I Thought](https://www.reddit.com/r/workout/comments/1wfpuyc/stronger_than_i_thought/)
+celebrates an unexpected bench press result.
+
+**Example 2:** [Machine hammer curl](https://www.reddit.com/r/workout/comments/1wh0wkr/machine_hammer_curl/)
+shares excitement about finding a useful machine.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `help_request` and `discussion_prompt`.
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+**Borderline post:** "How do you guys stay off your phone between sets?" (from front-page sample) asks what others do, but the author describes losing
+time to their own phone and asks whether a rest timer or airplane mode would
+help.
+
+**The decision rule I will use:** Use `help_request` when the author
+describes an unresolved problem, choice, or feeling of their own and asks for
+ideas, reassurance, or a next step to address it, even if phrased as "What do
+you do?" Use `discussion_prompt` when the author asks for general information
+or others' experiences without seeking help for their own unresolved issue.
+Personal context alone does not make a discussion prompt a help request.
 
 
 
