@@ -51,63 +51,72 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Held-out accuracy
 
-<!-- Your criterion. It must name a number. -->
+The fine-tuned model reaches at least 0.75 accuracy on the held-out test split
+in each of the three seed runs.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 2.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** r/workout mixes personal routine and nutrition help
+requests, general gym discussion prompts, and progress or anecdote posts, so I
+want TakeMeter to sort these three purposes correctly more than 70% of the
+time. With about 30 held-out posts, 0.75 requires at least 23 correct in every
+run and exceeds the largest label share allowed by the assignment.
 
 ---
 
-## 3.
+## 2. F1 floor for every label
 
-<!-- Your criterion. -->
+Each of `help_request`, `discussion_prompt`, and `sharing` reaches an F1 score
+of at least 0.60 on the held-out test split in each of the three seed runs.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** A post asking how to stay off a phone between sets could
+look like a general discussion prompt but seeks help with the author's own
+problem (overall accuracy could hide repeated mistakes at this boundary). If a
+label has only 30 of the 200 posts, roughly 4 or 5 will reach a 15% test split,
+so 0.60 F1 is a meaningful floor without demanding near-perfect scores from
+such a small group.
 
 ---
 
-## 5.
+## 3. Enough examples of every label
 
-<!-- Your criterion. -->
+In `labels.csv`, each of `help_request`, `discussion_prompt`, and `sharing`
+appears at least 30 times, and no label accounts for more than 70% of rows.
 
+**Why this target:** The r/workout posts we read include personal help requests,
+general workout discussions, and progress or gym-experience shares, but these
+purposes need not occur equally often. Thirty examples gives even the least
+common purpose some training data, while the 70% cap limits majority-label
+guessing. I will report a missed target rather than select posts to force it.
 
+---
 
-**Why this target:**
+## 4. Repeatable labeling
 
+On a blind second labeling of 30 posts sampled from `labels.csv` with
+`pandas.DataFrame.sample(n=30, random_state=42)`, at least 24 second-pass labels
+match the original labels.
 
+**Why this target:** The gym-guilt and phone-distraction examples show that a
+"what do you do?" question can be a personal help request, so I need to make
+the same call when I see similar r/workout posts again. A 24/30 match allows
+six hard cases to differ while revealing whether I apply the
+`help_request`/`discussion_prompt` rule consistently.
+
+---
+
+## 5. Limit confusion at the hardest boundary
+
+In each of the three seed runs, no more than 25% of held-out posts whose true
+label is `help_request` or `discussion_prompt` are predicted as the other of
+those two labels. Divide the number of these two cross-label errors by the
+combined held-out support for the two labels.
+
+**Why this target:** An r/workout post asking how others stay off their phones
+between sets could look like a general discussion prompt, but its author is
+seeking help with a personal problem. This is the hardest boundary in my
+taxonomy, so I want at least three quarters of posts at that boundary to
+avoid this specific mix-up across all three test splits.
 
 ---
 
