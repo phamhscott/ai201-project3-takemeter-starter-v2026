@@ -103,9 +103,9 @@ asks how to meet the author's calorie and protein goals within food restrictions
 
 ### `discussion_prompt`
 
-**Definition:** The author asks for general information, opinions, or other
-people's experiences without seeking help for an unresolved personal concern
-or choice.
+**Definition:** The author invites general information, opinions, or other
+people's experiences about a fitness topic without seeking advice they can
+apply to an unresolved personal concern or choice.
 
 **Example 1:** [What do you listen to when you workout?](https://www.reddit.com/r/workout/comments/1wfqas8/what_do_you_listen_to_when_you_workout/)
 asks others about their workout music.
@@ -133,12 +133,14 @@ shares excitement about finding a useful machine.
 time to their own phone and asks whether a rest timer or airplane mode would
 help.
 
-**The decision rule I will use:** Use `help_request` when the author
-describes an unresolved problem, choice, or feeling of their own and asks for
-ideas, reassurance, or a next step to address it, even if phrased as "What do
-you do?" Use `discussion_prompt` when the author asks for general information
-or others' experiences without seeking help for their own unresolved issue.
-Personal context alone does not make a discussion prompt a help request.
+**The decision rule I will use:** Ask what a useful answer would mainly do.
+Use `help_request` when it would advise the author about their own unresolved
+problem, goal, program, or feeling, including a specific next step or
+reassurance, even if the question is phrased as "What do you do?" Use
+`discussion_prompt` when it would mainly discuss a fitness topic or describe
+the responder's own experience, without telling the author how to address a
+personal issue. Personal context alone does not decide the label; when both
+kinds of answers seem possible, follow the outcome the author is asking for.
 
 
 
@@ -149,45 +151,72 @@ Personal context alone does not make a discussion prompt a help request.
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+**Where the posts came from:** An AI-assisted importer collected posts from
+[r/workout's New feed](https://www.reddit.com/r/workout/new/) on October 3,
+2026. It read three paginated Atom feed pages in New order. The first pass
+inspected 225 entries to obtain 200 posts, excluding 24 link or crosspost
+entries whose full text was not in the r/workout post and one exact-text
+duplicate. After I reviewed the CSV, two non-English posts and one repeated
+question were replaced with the next three eligible English posts from the
+same feed. The replacement posts were selected in feed order, without choosing
+their labels. Original text and title-only posts are included; each CSV note
+records its source URL and any replacement reason.
 
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:** I labeled the first 21 posts myself, without AI help;
+their notes say `cold`. AI suggested labels for the remaining posts. I read
+and confirmed or corrected all 179 suggestions, including the three
+replacement posts.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| `help_request` | 137 | 68.5% |
+| `discussion_prompt` | 44 | 22.0% |
+| `sharing` | 19 | 9.5% |
+| **Total** | **200** | **100%** |
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
+**1. [Realisticstrength goals for a 40yo](https://www.reddit.com/r/workout/comments/1ww5wie/realisticstrength_goals_for_a_40yo/) (CSV data row 74)**
 
-**1.**
-> *The post:*
+> *The post:* A 39-year-old returning to lifting lists his recent strength
+> numbers, asks whether larger numbers are realistic, and asks what goals other
+> people his age have.
 >
-> *Could have been:*
+> *Could have been:* `discussion_prompt`, because he asks about other people's
+> goals, or `help_request`, because he is uncertain what goal to set for his own
+> training.
 >
-> *I chose, because:*
+> *I chose `help_request`, because:* The general question is tied to an
+> unresolved personal choice about realistic strength goals. His age,
+> training history, and lifts are context for advice he can use himself.
 
-**2.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+**2. [I get really lazy when I'm on vacation.](https://www.reddit.com/r/workout/comments/1ww10he/i_get_really_lazy_when_im_on_vacation/) (CSV data row 89)**
 
-**3.**
-> *The post:*
+> *The post:* The author describes dropping workouts and eating differently
+> while traveling, then asks whether the same thing happens to anyone else.
 >
-> *Could have been:*
+> *Could have been:* `sharing`, because most of the post describes the author's
+> experience, or `discussion_prompt`, because it invites others to compare
+> their experiences.
 >
-> *I chose, because:*
+> *I chose `discussion_prompt`, because:* The author says they usually do not
+> feel bad about the vacation pattern. A useful answer would describe the
+> responder's own vacation habits, not give the author a strategy to change.
+
+**3. [Working out is demoralising man, it feels pointless.](https://www.reddit.com/r/workout/comments/1wux5d5/working_out_is_demoralising_man_it_feels_pointless/) (CSV data row 198)**
+
+> *The post:* After 6–8 weeks of training, the author reports soreness,
+> frustration, and no visible progress, but says they plan to keep going.
+>
+> *Could have been:* `help_request`, because the author has an unresolved
+> concern about progress, or `sharing`, because they mainly describe how the
+> experience feels.
+>
+> *I chose `sharing`, because:* The post does not ask for advice, assessment,
+> reassurance, or a next step. It reports the author's experience and current
+> intention to continue.
 
 ---
 
@@ -220,15 +249,23 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Help collecting the r/workout posts for `labels.csv` while
+  leaving the first 20 labels for my unaided pass.
+- *What came back:* Codex imported 200 unique posts from the New Atom feed,
+  saved their source URLs in the note column, and left all labels blank. The
+  importer skipped link or crosspost entries without local text and one
+  duplicate-text repost.
+- *What I changed:* <!-- Scott: add what you changed after reviewing the posts;
+  leave this as pending until you have actually done that review. -->
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Continue after my cold labeling pass and suggest labels
+  for the remaining posts using my three purpose definitions.
+- *What came back:* Codex added 179 suggested labels, marked all of them
+  `review required`, and flagged 24 close or unusual cases for extra review.
+- *What I changed:* <!-- Scott: describe actual corrections after reviewing
+  every suggested label. -->
 
 **Pre-labelling disclosure:**
 

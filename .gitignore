@@ -21,6 +21,9 @@ models/
 # `git add -A` in Colab commits a model checkpoint to your repo.
 takemeter_out/
 
+# Temporary Atom feed pages used to assemble labels.csv; keep one CSV in the repo.
+_workout_feed_page*.xml
+
 # OS noise
 .DS_Store
 Thumbs.db

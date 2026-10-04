@@ -6,5 +6,5 @@
 # Delete the examples below and put yours in.
 
 help_request: The author asks for advice, assessment, or strategies to address an unresolved problem, choice, or concern in their own fitness life.
-discussion_prompt: The author asks for general information, opinions, or other people's experiences without seeking help for an unresolved personal concern or choice.
+discussion_prompt: The author invites general information, opinions, or other people's experiences about a fitness topic without seeking advice they can apply to an unresolved personal concern or choice.
 sharing: The author mainly reports an experience or result, states a view, or offers a recommendation without asking for personal help or inviting a general exchange.
