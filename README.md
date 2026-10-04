@@ -287,7 +287,6 @@ macro F1  0.267
 
 **Moment 1**
 
-- *Tool:* Codex.
 - *What I asked for:* Help obtaining public r/workout posts for `labels.csv`,
   with the first posts left unlabeled for my unaided pass.
 - *What came back:* AI suggested Reddit's paginated New Atom feed and wrote
@@ -302,7 +301,6 @@ macro F1  0.267
 
 **Moment 2**
 
-- *Tool:* Codex.
 - *What I asked for:* Suggest labels for the remaining posts using my three
   purpose definitions after I finished the unaided pass.
 - *What came back:* AI suggested labels for 179 posts, marked them for
