@@ -42,6 +42,14 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
+TakeMeter sorts public posts from [r/workout](https://www.reddit.com/r/workout/)
+by their main purpose. It assigns
+`help_request` when the author wants advice for their own fitness situation,
+`discussion_prompt` when they invite a broader conversation or other people's
+experiences, and `sharing` when they mainly report an experience, result, or
+view. I reviewed a 200-post dataset under this taxonomy and fine-tuned
+DistilBERT on its training split.
+
 
 
 ---
@@ -176,6 +184,9 @@ replacement posts.
 | `sharing` | 19 | 9.5% |
 | **Total** | **200** | **100%** |
 
+The 19 `sharing` posts fall below the 30-example target in criterion 3. I kept
+the New-feed sample instead of selecting extra posts by label.
+
 **Three hard cases**
 
 **1. [Realisticstrength goals for a 40yo](https://www.reddit.com/r/workout/comments/1ww5wie/realisticstrength_goals_for_a_40yo/) (CSV data row 74)**
@@ -224,15 +235,42 @@ replacement posts.
 
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+**Base model:** `distilbert-base-uncased`.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Settings:** 3 epochs, learning rate `2e-5`, batch size 16, maximum input
+length 128 tokens, seed 42; the run used a CPU.
 
-**Anything I changed from the defaults, and why:**
+**Anything I changed from the defaults, and why:** I set `LABELS` to
+`help_request`, `discussion_prompt`, and `sharing` so the notebook matched my
+CSV taxonomy. I kept the base model and training settings at their defaults.
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
+**Split sizes:** The notebook's stratified split put 139 posts in training, 31
+in validation, and 30 in the held-out test set. The small `sharing` support
+means its test F1 will be especially sensitive to individual mistakes.
+
+<!-- train / val / test, and per-label counts in the test
 split. If a label had fewer than about 8 in test, say so — it explains a lot
 of next unit's variance. -->
+
+| Label | Train | Validation | Test |
+|---|---:|---:|---:|
+| `help_request` | 96 | 21 | 20 |
+| `discussion_prompt` | 30 | 7 | 7 |
+| `sharing` | 13 | 3 | 3 |
+
+The notebook's `train_model()` completed the fine-tuning run and printed
+`Trained.` The notebook's `evaluate()` saved held-out metrics in
+[results.json](results.json) and the matching posts in
+[test_split.csv](test_split.csv). Its saved output was:
+
+```text
+accuracy  0.667
+macro F1  0.267
+
+  help_request     F1 0.800   (n=20)
+  discussion_prompt F1 0.000   (n=7)
+  sharing          F1 0.000   (n=3)
+```
 
 
 
@@ -249,25 +287,37 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:* Help collecting the r/workout posts for `labels.csv` while
-  leaving the first 20 labels for my unaided pass.
-- *What came back:* Codex imported 200 unique posts from the New Atom feed,
-  saved their source URLs in the note column, and left all labels blank. The
-  importer skipped link or crosspost entries without local text and one
-  duplicate-text repost.
-- *What I changed:* <!-- Scott: add what you changed after reviewing the posts;
-  leave this as pending until you have actually done that review. -->
+- *Tool:* Codex.
+- *What I asked for:* Help obtaining public r/workout posts for `labels.csv`,
+  with the first posts left unlabeled for my unaided pass.
+- *What came back:* AI suggested Reddit's paginated New Atom feed and wrote
+  an importer that gathered 200 source posts with URLs in the CSV notes.
+- *What I changed:* I labeled the first 21 posts myself. While reviewing the
+  collected posts, I found two non-English posts I had skipped and a repeated
+  question. I asked AI to replace those three with the next eligible posts
+  from the same feed.
+- *How I verified it:* I read the collected posts, checked the replacements,
+  and confirmed that `labels.csv` still has 200 distinct posts with source
+  URLs.
 
 **Moment 2**
 
-- *What I asked for:* Continue after my cold labeling pass and suggest labels
-  for the remaining posts using my three purpose definitions.
-- *What came back:* Codex added 179 suggested labels, marked all of them
-  `review required`, and flagged 24 close or unusual cases for extra review.
-- *What I changed:* <!-- Scott: describe actual corrections after reviewing
-  every suggested label. -->
+- *Tool:* Codex.
+- *What I asked for:* Suggest labels for the remaining posts using my three
+  purpose definitions after I finished the unaided pass.
+- *What came back:* AI suggested labels for 179 posts, marked them for
+  review, flagged difficult cases, and created `review_labels.py` to show each
+  full post and let me confirm or change its label.
+- *What I changed:* I used the script to read every suggested row and changed
+  some labels when another label better matched the kind of answer the post
+  invited. For example, I distinguished requests for advice to the author from
+  prompts for others to discuss a fitness topic or their own experiences.
+- *How I verified it:* The CSV notes distinguish my 21 `cold` labels from the
+  179 AI suggestions I checked; none remain marked `review required`.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** AI suggested labels for 179 of the 200 posts.
+I reviewed every suggestion and confirmed or corrected it before training.
+The first 21 labels were mine without AI help.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
